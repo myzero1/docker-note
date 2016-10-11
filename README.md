@@ -67,10 +67,22 @@
 Feel free to use it.
 
 # other
-* 如何打开多个终端进入Docker容器 
-
+1. 如何打开多个终端进入Docker容器 
     ```shell
     docker exec -it <container_id> /bin/bash
     #退出docker exec打开的终端“不会”关闭这容器，而退出attach打开的终端“会”关闭这个容器
     ```
+2. docker 容器中 crond服务启动后 无法执行
+    
+    * cat /etc/issue
+    * 进入容器后安装crond服务：yum install crontabs
+    * 启动程序：# /etc/init.d/crond start
+    * 写入计划任务 crontab -e,crontab -l
+        ```shell
+           */1 * * * * echo "aaaaaaaaaaaaa"  >> /tmp/test.log
+         ```
+         
+        
+    
+    
         
