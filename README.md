@@ -74,13 +74,32 @@ Feel free to use it.
     ```
 2. docker 容器中 crond服务启动后 无法执行
     
-    * cat /etc/issue
-    * 进入容器后安装crond服务：yum install crontabs
-    * 启动程序：# /etc/init.d/crond start
-    * 写入计划任务 crontab -e,crontab -l
-        ```shell
-           */1 * * * * echo "aaaaaaaaaaaaa"  >> /tmp/test.log
-         ```
+    ```shell
+        docker宿主机系统版本
+        # cat /etc/issue
+        CentOS release 6.7 (Final)
+
+        内核版本
+        # uname -a
+        Linux test 3.10.101-1.el6.elrepo.x86_64 #1 SMP Wed Mar 16 20:55:27 EDT 2016 x86_64 x86_64 x86_64 GNU/Linux
+
+        容器也是同样的系统版本
+
+        进入容器后安装crond服务：yum install crontabs
+        启动程序：# /etc/init.d/crond start
+        写入计划任务：
+        # crontab -l
+        */1 * * * * echo "aaaaaaaaaaaaa"  >> /tmp/test.log
+        由于镜像最简化安装，所以crond程序是无日志的，此时等待几分钟时间是无法出现/tmp/test.log文件的，由此判断crond程序没有正常工作，我们需要修改文件如下：
+        # cat /etc/pam.d/crond
+        #session    required   pam_loginuid.so      #注释此行修改成下一行
+        session    sufficient   pam_loginuid.so
+        # /etc/init.d/crond restart
+        Stopping crond:                                            [  OK  ]
+        Starting crond:                                            [  OK  ]
+        [root@BW-GL11 ~]# tailf /tmp/test.log     此时看到已经可以执行
+        aaaaaaaaaaaaa
+    ```
          
         
     
