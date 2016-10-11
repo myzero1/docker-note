@@ -172,7 +172,7 @@ Feel free to use it.
 
     首先通过iptables来查看是否生效。
 
-    # iptables -n -t nat -L
+    # iptables -n -t nat -L --line-number
     Chain PREROUTING (policyACCEPT)
     target prot opt source destination
     DNAT tcp -- 0.0.0.0/0 10.50.10.56 tcp dpts:1:65535to:172.17.0.1:1-65535
