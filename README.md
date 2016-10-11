@@ -73,8 +73,8 @@ Feel free to use it.
     #退出docker exec打开的终端“不会”关闭这容器，而退出attach打开的终端“会”关闭这个容器
     ```
 2. docker 容器中 crond服务启动后 无法执行
-    
-    ```shell
+ 
+```shell
         docker宿主机系统版本
         # cat /etc/issue
         CentOS release 6.7 (Final)
