@@ -106,6 +106,7 @@ Feel free to use it.
 * 利用iptables给Docker绑定一个外网IP 
 
 ```shell
+    原文地址http://blog.csdn.net/shipengfei92/article/details/47089055
     背景
 
     由于Docker默认是不能够与外部进行直接的通信，比较普遍的仿佛是利用启动时-p来与主机进行端口映射与外界沟通。但是有时候在有其他需求时并不太方便，特别是在进行一些docker打包之前的内部开发时，希望其能够像虚机一样能够与外部有很好的通信，便希望其能够绑定外部的IP地址。 
