@@ -68,10 +68,11 @@ Feel free to use it.
 
 # other
 1. 如何打开多个终端进入Docker容器 
-    ```shell
+
+```shell
     docker exec -it <container_id> /bin/bash
     #退出docker exec打开的终端“不会”关闭这容器，而退出attach打开的终端“会”关闭这个容器
-    ```
+```
 2. docker 容器中 crond服务启动后 无法执行
  
 ```shell
@@ -99,7 +100,7 @@ Feel free to use it.
         Starting crond:                                            [  OK  ]
         [root@BW-GL11 ~]# tailf /tmp/test.log     此时看到已经可以执行
         aaaaaaaaaaaaa
-    ```
+```
          
         
     
