@@ -106,98 +106,51 @@ Feel free to use it.
 * 利用iptables给Docker绑定一个外网IP 
 
 ```shell
-    原文地址http://blog.csdn.net/shipengfei92/article/details/47089055
-    背景
+    
 
-    由于Docker默认是不能够与外部进行直接的通信，比较普遍的仿佛是利用启动时-p来与主机进行端口映射与外界沟通。但是有时候在有其他需求时并不太方便，特别是在进行一些docker打包之前的内部开发时，希望其能够像虚机一样能够与外部有很好的通信，便希望其能够绑定外部的IP地址。 
-    docker默认的网络是桥接在创建好后的网桥docker0上的。docker0默认的典型地址为172.17.42.1，子网掩码为255.255.0.0。之后启动容器会给容器分配一个同一网段（172.17.0.0/16）的地址。然后启动docker容器时会创建一对veth pair。其中一端为容器内部的eth0，另外一端为挂载到docker0网桥并以veth开头命名。如下所示：
+目标
+给docker容器绑定公网ip。把公网ip（192.168.99.222）绑定到容器（171.17.0.2）上
 
-    #brctl show
-    bridge name bridge id STPenabled interfaces
-    docker0 8000.56847afe9799 no veth135f096
-    veth5f8fe2d
-    通过这种方式，容器可以跟主机以及容器之间进行通信，主机和容器共享虚拟网络。 
-    在做开发等时候，可能希望容器能够像虚机一样远程登录与访问，这时候就需要给容器再绑定一个外部IP地址，这时候即可考虑采用iptables进行端口转发来实现对于容器的外部IP绑定。
+环境
+这是部署在win7上的docker toolbox上完成的操作。
+物理机：win7系统（192.168.99.1）
+宿主机：eth1（192.168.99.100）
+容器ip：container_name(171.17.0.2)
 
-    环境
 
-    一台ubuntu的服务器，所属网段为10.50.10.0/26，该服务器的IP为10.50.10.26，由于还使用了ovs，因此是该IP是在br-ex上的； 
-    一个ubuntu的容器，IP为172.17.0.1/26 。
+操作
+1为宿主机绑定多个ip
+进入宿主机把192.168.99.222绑定到eth1:1上
+ifconfig eth1:1 192.168.99.222
 
-    目的
+2通过DNAT来重写包的目的地址，将指向192.168.99.222的数据包的目的地址都改为172.17.0.2
+iptables -t nat -A PREROUTING -d 192.168.99.222 -p tcp -m tcp --dport 1:65535 -j DNAT --to-destination 172.17.0.2:1-65535
 
-    通过iptables为IP为172.17.0.1的容器绑定外部IP 这里为10.50.10.56.
+3重写包的源IP地址，即在容器中收到数据包之后，将其源改为docker0的地址（172.17.42.1是典型的ip）。（要实现我们的目的，这一步不是必须的）
+iptables -t nat -A POSTROUTING -d 172.17.0.2 -p tcp -m tcp --dport 1:65535 -j SNAT --to-source 172.17.42.1
 
-    过程
 
-    整个过程大致分为3部分：
 
-    1. 为主机绑定多个IP地址
+注意：docker run -it -p 10.10.10.1.222:80:80  -p 10.10.10.1.221:3306:3306 --name=container_name lnmpv2:cenos6 /bin/bash，这个可以替代第二步，只是需要一个一个第绑定端口，而第二步，一次性绑定了端口1-65535.
 
-    这一步可以通过如下命令来给网桥绑定另外一个IP：
 
-    #ifconfig br-ex:010.50.10.56/24
-    如果希望重启机器后仍然能够生效，需要将其写入到/etc/network/interfaces中。
+补充
 
-    2. iptables设置DNAT
+查看iptables    
+iptables -n -t nat -L --line-numbers
 
-    通过DNAT来重写包的目的地址，将指向10.50.10.56的数据包的目的地址都改为172.17.0.1，这样即可以
 
-    #iptables -t nat -A PREROUTING -d 10.50.10.56 -p tcp -m tcp --dport 1:65535 -j DNAT--to-destination 172.17.0.1:1-65535
+删除规则
+iptables –t nat –D PREROUTING <number>
+iptables –t nat –D POSTROUTING <number>
 
-    3. iptables设置SNAT
 
-    重写包的源IP地址，即在容器中收到数据包之后，将其源改为docker0的地址。
+资料
+http://blog.csdn.net/shipengfei92/article/details/47089055
+http://stackoverflow.com/questions/34688906/how-to-assign-static-public-ip-to-docker-container
 
-    #iptables -t nat -A POSTROUTING -d 172.17.0.1 -p tcp -m tcp --dport 1:65535 -j SNAT --to-source172.17.42.1
 
-    保存规则
 
-    如果希望保存下来，需要通过命令：
-
-    #/etc/init.d/iptables save
-
-    来进行保存。
-
-    删除规则
-
-    当然如果想删除该规则，也可以通过
-
-    # iptables –t nat –D PREROUTING <number>
-    # iptables –t nat –D POSTROUTING <number>
-
-    来将创建的这两条规则删除。
-
-    验证
-
-    首先通过iptables来查看是否生效。
-
-    # iptables -n -t nat -L --line-number
-    Chain PREROUTING (policyACCEPT)
-    target prot opt source destination
-    DNAT tcp -- 0.0.0.0/0 10.50.10.56 tcp dpts:1:65535to:172.17.0.1:1-65535
-    Chain INPUT (policyACCEPT)
-    target prot opt source destination
-    Chain OUTPUT (policyACCEPT)
-    target prot opt source destination
-    DOCKER all -- 0.0.0.0/0 !127.0.0.0/8 ADDRTYPE match dst-type LOCAL
-    Chain POSTROUTING (policyACCEPT)
-    target prot opt source destination
-    MASQUERADE all -- 10.50.10.0/26 0.0.0.0/0
-    MASQUERADE all -- 172.17.0.0/16 0.0.0.0/0
-    SNAT tcp -- 0.0.0.0/0 172.17.0.1 tcp dpts:1:65535 to:172.17.42.1
-    然后可以通过安装ssh或者apache2等需要使用端口的服务来进行验证。
-
-    当然实现这个功能会有很多种方法，欢迎大家来拍砖～
-
-    参考
-
-    1，《Docker——从入门到实践》：高级网络配置 
-    http://dockerpool.com/static/books/docker_practice/advanced_network/README.html 
-    2，The netfilter/iptables HOWTO’s 
-    http://www.netfilter.org/documentation/index.html 
-    3，Iptables 指南 
-    http://man.chinaunix.net/network/iptables-tutorial-cn-1.1.19.html
 ```   
          
          
