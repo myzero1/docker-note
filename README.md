@@ -48,7 +48,7 @@
     
 4.  镜像操作
 
-    4.1 导入镜像：cat lampv4.tar | docker import - woogle/lamp:v4,把lampv4.tar这个文件导入成，仓库名为woogle/lamp,版本我v4的镜像
+    4.1 导入镜像：cat lampv4.tar | docker import - woogle/lamp:v4,把lampv4.tar这个文件导入成，仓库名为woogle/lamp,版本我v4的镜像。导出镜像 docker export contain_id > customer.tar
     
     4.2 查看镜像： docker images
     
