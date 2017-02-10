@@ -61,6 +61,7 @@
     4.6 这里是我导出来的一个lamp容器，放在百度云上的，http://pan.baidu.com/s/1dFNqMlF
     
     若果你要使用这个容器，请在你的工作目录下建一个website目录，并在website目录下建一个web目录存你的web代码，在website目录下建一个database目录用来存mysql数据。都穿创建好后，在docker-vm与windows的共享目录映射修改成映射到你的website目录上。然后后把这个文件导入成镜像，最后使用类似样子的命令docker run -it -v /c/Users/:/var/www/html/website --name=lampv3 --net=host woogle/lamp:v3 /bin/bash创建并启动容器。
+    
 5.  docker容器绑定独立的公网ip
 
     5.1 给宿主机现有公网ip所在的网卡绑定多个公网ip，后面新建容器时就在绑定的这一些公网ip中挑选一个公网ip进行绑定。代码如下
@@ -73,11 +74,9 @@
     
     5.2 在新建docker容器时，使用-p参数进行公网ip和端口的绑定。代码如下
     
-    ```code
-    
-        docker run -it --name=test240 -p 192.168.0.240:80:80 -p 192.168.0.240:3306:3306 -p 192.168.0.240:2088:2088 ubuntu:last /bin/bash
+    ```code
+    docker run -it --name=test240 -p 192.168.0.240:80:80 -p 192.168.0.240:3306:3306 -p 192.168.0.240:2088:2088 ubuntu:last /bin/bash
     ```
-
     
     
 
