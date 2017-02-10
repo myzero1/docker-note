@@ -78,6 +78,60 @@
     docker run -it --name=test240 -p 192.168.0.240:80:80 -p 192.168.0.240:3306:3306 -p 192.168.0.240:2088:2088 ubuntu:last /bin/bash
     ```
     
+ 
+    
+6.  Docker使用weave实现跨主机容器连接
+
+    6.1 使用weave进行处理(docker容器直接可以通过公网ip连接吗？)
+    
+    6.2 环境如下：
+    
+    ```code
+    				win7+virtualbox
+				两台ubuntu16.04虚拟机
+				双网卡，Host-Only & NAT
+				IP地址：
+					Host1:192.168.59.103
+					Host2:192.168.59.104
+    ```
+    
+    
+    6.3 具体操作如下:
+    
+    ```code
+				在192.168.59.103上的操作
+
+					sudo wget -O /usr/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+
+					sudo chmod a+x /usr/bin/weave
+
+					weave launch
+
+
+				在192.168.59.104上的操作
+
+					sudo wget -O /usr/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+
+					sudo chmod a+x /usr/bin/weave
+
+					weave launch 192.168.59.103
+
+					c2=$(weave run 192.168.1.2/24 -it --name=host2.1 ubuntu /bin/bash)
+
+					docker attache $c2  (或者用docker attache host2.1)
+
+					ifconfig
+
+				在192.168.59.103上的操作
+
+					weave run 192.168.1.10/24 -it --name=wc1 ubuntu /bin/bash
+
+					docker attach wc1
+
+					ifconfig
+
+					ping 192.168.1.2
+    ```
     
 
 # License
