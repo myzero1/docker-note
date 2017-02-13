@@ -133,6 +133,38 @@
 					ping 192.168.1.2
     ```
     
+    
+    
+7.  用-p参数绑定公网ip，用weave指定内部访问的固定ip
+
+    7.1 给宿主机现有公网ip所在的网卡绑定多个公网ip，后面新建容器时就在绑定的这一些公网ip中挑选一个公网ip进行绑定。代码如下
+    
+    ```code
+        ifconfig eth0:0 192.168.0.240 netmask 255.255.255.0 up
+		ifconfig eth0:1 192.168.0.241 netmask 255.255.255.0 up
+		ifconfig eth0:2 192.168.0.242 netmask 255.255.255.0 up
+    ```
+    
+    7.2 安装weave用于固定容器内部通信的ip 
+
+ 	```code
+					sudo wget -O /usr/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+
+					sudo chmod a+x /usr/bin/weave
+
+					weave launch
+	```
+
+    
+    7.3 用ip指定公网ip用weave固定容器内部通信的ip。代码如下
+    
+    ```code
+    weave run 192.168.135.243/24 -it --name=test3 -p 192.168.1.243:2088:2088 -p 192.168.1.243:9090:9090 -p 192.168.1.243:2181:2181 -p 192.168.1.243:3306:3306 -p 192.168.1.243:8080:8080 -p 192.168.1.243:80:80 -p 192.168.1.243:8090:8090 otter /bin/bash
+    
+    注意：weave指定的网址所在的网段，是一个没用使用的网段。这也就是weave无法直接指定公网ip的原因。
+    
+    ```
+    
 
 # License
 Feel free to use it.
