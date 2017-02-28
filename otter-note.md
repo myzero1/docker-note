@@ -1,7 +1,19 @@
 ##otter-note
 #note
 ```pre
+otter地址：https://github.com/alibaba/otter
+安装教程：http://blog.sina.com.cn/s/articlelist_1869333262_0_1.html
 
+---------------------
+
+国内如何下载 GitHub release 中的内容？
+
+我找到两个方法可以比较好解决这个问题：
+1：使用http://pcloud.com这个国外网盘，离线国外很快。
+2：使用axel支持https的版本，开50个线程来下。
+
+
+-------------------------------------------------------------------
 大平台，分布式架构，数据同步（阿里的Otter&Canal）
 
 	低级节点全部表同步到高级节点
