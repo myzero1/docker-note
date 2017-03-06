@@ -17,6 +17,7 @@
     
     1.5. 创建machine   
     docker-machine create --driver virtualbox my-machine
+    
     docker-machine create --driver virtualbox --virtualbox-disk-size "30720" yungengxin
     
     1.6. 启动脚步。1.boot2dokcer的启动脚步是/var/lib/boot2docker/bootlocal.sh可以持久化。2.Ubuntu容器的启动脚步是/etc/bash.bashrc可以持久化。3.centos容器的启动脚步是/etc/bashrc可以持久化
