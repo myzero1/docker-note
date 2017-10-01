@@ -6,6 +6,7 @@ docker-compose的使用
 	创建machine
 		docker-machine create --virtualbox-disk-size "<the-size>" --driver virtualbox <machine-name>
 		如：docker-machine create --virtualbox-disk-size "2048"  --driver virtualbox test
+		注意：配置docker加速   https://www.daocloud.io/mirror#accelerator-doc
 
 	运行machine
 		docker-machine start <machine-name>
