@@ -31,7 +31,7 @@ docker-compose的使用
 		docker-compose down
 
 	7注意
-		上面的操作都是真对在git bash中的操作
+		上面的操作都是针对在git bash中的操作
 		若在Docker Quickstart Terminal中可以可以只执行5,6
 		
 	
