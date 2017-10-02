@@ -9,6 +9,13 @@ docker-compose的使用
 		如：docker-machine create --virtualbox-disk-size "2048"  --driver virtualbox test
 
 		注意：配置docker加速   https://www.daocloud.io/mirror#accelerator-doc
+			docker-machine ssh test
+
+			sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=http://6addb9c6.m.daocloud.io |g" /var/lib/boot2docker/profile
+
+			exit
+
+			docker-machine restart test
 
 	2运行machine
 		docker-machine start <machine-name>
