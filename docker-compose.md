@@ -37,9 +37,12 @@ docker-compose的使用
 		docker-compose up -d
 		docker-compose down
 
-	7注意
-		上面的操作都是针对在git bash中的操作
-		若在Docker Quickstart Terminal中可以可以只执行5,6
+	*注意
+		上面的操作都是真对在git bash中的操作,若在Docker Quickstart Terminal中可以可以只执行5,6
+
+		挂载的目录必须放到C:\users\username下面，因为docker只共享了这个目录。参考https://github.com/docker/compose/issues/2548
+
+		把配置中的镜像换成daocloud.io的会快很多。镜像地址http://hub.daocloud.io/
 		
 	
 ```
