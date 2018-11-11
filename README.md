@@ -12,6 +12,11 @@
     1.2. 安装请参考官方手册https://docs.docker.com/toolbox/toolbox_install_windows/
     
     1.3. 替换国内镜像源，具体方法参考http://docs.daocloud.io/faq/what-is-daocloud-accelerator#docker-toolbox
+
+    docker-machine ssh default 
+sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=加速地址 |g" /var/lib/boot2docker/profile 
+exit 
+docker-machine restart default
     
     1.4. 安装好后，点击桌面上的Docker Quickstart Terminal这快捷方式，会自动创建名字为default的dockervm，并启动。你会发现在这个启动的窗口中不能复制，很不方便，你可以安装最新版的git bash替换现在已经安装的，体验要好的多。在git-bash中输入docker-machine ssh，就可以进入刚刚启动的docker-vm。docker-machine start/stop分别为启动和关闭docker-vm，更多操作，请用docker-machine --help查看。`注意：1. docker-machine ssh是以docker用户进入boot2docker，进入后可以用“sudo -i”或者“sudo su root”切换到root用户 2. /var/lib/boot2docker/bootlocal.sh 是 boot2docker 的开机启动配置脚本,有新的配置我们可以直接写在里面`
     
