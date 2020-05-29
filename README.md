@@ -290,11 +290,11 @@ docker-machine restart default
 
 推荐的配置参数
 docker-machine create \
---driver virtualbox \
+--driver=virtualbox \
 --virtualbox-cpu-count=2 \
 --virtualbox-memory=4096  \
 --virtualbox-disk-size=102400 \
---virtualbox-share-folder "D:\workspace\docker-workspace:d/workspace/docker-workspace"
+--virtualbox-share-folder=D:\workspace\docker-workspace:d/workspace/docker-workspace \
 --virtualbox-boot2docker-url=https://note.youdao.com/yws/res/5993/WEBRESOURCE7d08d7b39bfa922ed21bfb7e2afd1a66 \
 --engine-registry-mirror=https://fhy2erxk.mirror.aliyuncs.com \
 --engine-registry-mirror=https://ulh1xo4t.mirror.aliyuncs.com \
@@ -304,11 +304,11 @@ dws
 
 推荐的配置参数说明
 docker-machine create \
---driver virtualbox \ #驱动
+--driver=virtualbox \ #驱动
 --virtualbox-cpu-count=2 \ # cpu 2 个数
 --virtualbox-memory=4096  \ #内存4G
 --virtualbox-disk-size=102400 \ # 磁盘100G
---virtualbox-share-folder "D:\workspace\docker-workspace:d/workspace/docker-workspace" #宿主机和boot2docker的文件共享
+--virtualbox-share-folder=D:\workspace\docker-workspace:d/workspace/docker-workspace \ #宿主机和boot2docker的文件共享
 #--virtualbox-boot2docker-url=file://C:\\Users\\Administrator\\.docker\\machine\\cache\\boot2docker.iso \   #使用本地的boot2docker镜像
 --virtualbox-boot2docker-url=https://note.youdao.com/yws/res/5993/WEBRESOURCE7d08d7b39bfa922ed21bfb7e2afd1a66 \ #自定义地址，不设置会去github找
 --engine-registry-mirror=https://fhy2erxk.mirror.aliyuncs.com \ #docker 镜像地址可以设置多个
