@@ -278,6 +278,9 @@ http://stackoverflow.com/questions/34688906/how-to-assign-static-public-ip-to-do
 # docker-machine
 
 ```
+安装dockertoolbox，下载下来直接安装就可以了，安装后就有docker-machine了
+	下载dockertool 官方地址是http://get.daocloud.io/#install-toolbox ，在https://get.daocloud.io/toolbox/ 这里下载国内镜像
+
 查看帮助
 docker-machine create --help
 
@@ -319,7 +322,7 @@ dws
 
 修改docker安装的machine位置   https://www.cnblogs.com/ginponson/p/8601320.html  https://www.jianshu.com/p/80fa5b563b5b?utm_campaign   
 
-在Windows的系统环境添加 MACHINE_STORAGE_PATH ，指向虚拟机的位置（我推荐 D:\VM\machines）
+在Windows的系统环境添加 MACHINE_STORAGE_PATH ，指向虚拟机的位置（我推荐 D:\vm\boot2docker-machine ）
 
 
 
