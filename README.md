@@ -275,7 +275,18 @@ http://stackoverflow.com/questions/34688906/how-to-assign-static-public-ip-to-do
          
          
          
-        
+# docker-machine
+
+```
+查看帮助
+docker-machine create --help
+
+是用--virtualbox-share-folder让window和Boot2Docker共享目录
+docker-machine create --driver virtualbox --virtualbox-disk-size "30720" --virtualbox-share-folder "D:\workspace\docker-workspace:d/workspace/docker-workspace" workspace
+
+
+
+```
     
     
         
