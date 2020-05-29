@@ -12,11 +12,12 @@
     1.2. 安装请参考官方手册https://docs.docker.com/toolbox/toolbox_install_windows/
     
     1.3. 替换国内镜像源，具体方法参考http://docs.daocloud.io/faq/what-is-daocloud-accelerator#docker-toolbox
-
-    docker-machine ssh default 
-sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=加速地址 |g" /var/lib/boot2docker/profile 
-exit 
+```
+docker-machine ssh default
+sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=加速地址 |g" /var/lib/boot2docker/profile
+exit
 docker-machine restart default
+``
     
     1.4. 安装好后，点击桌面上的Docker Quickstart Terminal这快捷方式，会自动创建名字为default的dockervm，并启动。你会发现在这个启动的窗口中不能复制，很不方便，你可以安装最新版的git bash替换现在已经安装的，体验要好的多。在git-bash中输入docker-machine ssh，就可以进入刚刚启动的docker-vm。docker-machine start/stop分别为启动和关闭docker-vm，更多操作，请用docker-machine --help查看。`注意：1. docker-machine ssh是以docker用户进入boot2docker，进入后可以用“sudo -i”或者“sudo su root”切换到root用户 2. /var/lib/boot2docker/bootlocal.sh 是 boot2docker 的开机启动配置脚本,有新的配置我们可以直接写在里面`
     
@@ -66,7 +67,7 @@ docker-machine restart default
     
     4.5 删除镜像： docker rmi 镜像id
     
-    4.6 这里是我导出来的一个lamp容器，放在百度云上的，http://pan.baidu.com/s/1dFNqMlF
+    4.6 这里是我导出来的一个lamp容器，放在百度云上的，
     
     若果你要使用这个容器，请在你的工作目录下建一个website目录，并在website目录下建一个web目录存你的web代码，在website目录下建一个database目录用来存mysql数据。都穿创建好后，在docker-vm与windows的共享目录映射修改成映射到你的website目录上。然后后把这个文件导入成镜像，最后使用类似样子的命令docker run -it -v /c/Users/:/var/www/html/website --name=lampv3 --net=host woogle/lamp:v3 /bin/bash创建并启动容器。
     
