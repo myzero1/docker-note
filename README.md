@@ -317,8 +317,9 @@ docker-machine create \
 dws
 
 
-把vm文件转移到其它目录
+修改docker安装的machine位置   https://www.cnblogs.com/ginponson/p/8601320.html  https://www.jianshu.com/p/80fa5b563b5b?utm_campaign   
 
+在Windows的系统环境添加 MACHINE_STORAGE_PATH ，指向虚拟机的位置（我推荐 D:\VM\machines）
 
 
 
