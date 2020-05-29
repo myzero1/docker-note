@@ -281,9 +281,6 @@ http://stackoverflow.com/questions/34688906/how-to-assign-static-public-ip-to-do
 查看帮助
 docker-machine create --help
 
-是用--virtualbox-share-folder让window和Boot2Docker共享目录
-docker-machine create --driver virtualbox --virtualbox-disk-size "30720" --virtualbox-share-folder "D:\workspace\docker-workspace:d/workspace/docker-workspace" workspace
-
 替换国内docker镜像  http://docs.daocloud.io/faq/what-is-daocloud-accelerator#docker-toolbox
 docker-machine ssh default
 #sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=加速地址 |g" /var/lib/boot2docker/profile
@@ -291,13 +288,38 @@ sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=https://fhy2erxk.mirro
 exit
 docker-machine restart default
 
-在创建的时候就修改docker的加速镜像
-docker-machine create --driver virtualbox --virtualbox-disk-size "30720" --virtualbox-share-folder "D:\workspace\docker-workspace:d/workspace/docker-workspace" --engine-registry-mirror=https://fhy2erxk.mirror.aliyuncs.com dws
+推荐的配置参数
+docker-machine create \
+--driver virtualbox \
+--virtualbox-cpu-count=2 \
+--virtualbox-memory=4096  \
+--virtualbox-disk-size=10240 \
+--virtualbox-share-folder "D:\workspace\docker-workspace:d/workspace/docker-workspace"
+--virtualbox-boot2docker-url=https://note.youdao.com/yws/res/5993/WEBRESOURCE7d08d7b39bfa922ed21bfb7e2afd1a66 \
+--engine-registry-mirror=https://fhy2erxk.mirror.aliyuncs.com \
+--engine-registry-mirror=https://ulh1xo4t.mirror.aliyuncs.com \
+--engine-registry-mirror=https://2lqq34jg.mirror.aliyuncs.com \
+dws
 
-不检查Boot2Docker更新
+
+推荐的配置参数说明
+docker-machine create \
+--driver virtualbox \ #驱动
+--virtualbox-cpu-count=2 \ # cpu 2 个数
+--virtualbox-memory=4096  \ #内存4G
+--virtualbox-disk-size=102400 \ # 磁盘100G
+--virtualbox-share-folder "D:\workspace\docker-workspace:d/workspace/docker-workspace" #宿主机和boot2docker的文件共享
+#--virtualbox-boot2docker-url=file://C:\\Users\\Administrator\\.docker\\machine\\cache\\boot2docker.iso \   #使用本地的boot2docker镜像
+--virtualbox-boot2docker-url=https://note.youdao.com/yws/res/5993/WEBRESOURCE7d08d7b39bfa922ed21bfb7e2afd1a66 \ #自定义地址，不设置会去github找
+--engine-registry-mirror=https://fhy2erxk.mirror.aliyuncs.com \ #docker 镜像地址可以设置多个
+--engine-registry-mirror=https://ulh1xo4t.mirror.aliyuncs.com \
+--engine-registry-mirror=https://2lqq34jg.mirror.aliyuncs.com \
+dws
 
 
 把vm文件转移到其它目录
+
+
 
 
 ```
