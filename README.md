@@ -294,7 +294,10 @@ docker-machine restart default
 在创建的时候就修改docker的加速镜像
 docker-machine create --driver virtualbox --virtualbox-disk-size "30720" --virtualbox-share-folder "D:\workspace\docker-workspace:d/workspace/docker-workspace" --engine-registry-mirror=https://fhy2erxk.mirror.aliyuncs.com dws
 
+不检查Boot2Docker更新
 
+
+把vm文件转移到其它目录
 
 
 ```
