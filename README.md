@@ -287,11 +287,12 @@ docker-machine create --driver virtualbox --virtualbox-disk-size "30720" --virtu
 替换国内docker镜像  http://docs.daocloud.io/faq/what-is-daocloud-accelerator#docker-toolbox
 docker-machine ssh default
 #sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=加速地址 |g" /var/lib/boot2docker/profile
-sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=http://f1361db2.m.daocloud.io |g" /var/lib/boot2docker/profile
+sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=https://fhy2erxk.mirror.aliyuncs.com |g" /var/lib/boot2docker/profile
 exit
 docker-machine restart default
 
-
+在创建的时候就修改docker的加速镜像
+docker-machine create --driver virtualbox --virtualbox-disk-size "30720" --virtualbox-share-folder "D:\workspace\docker-workspace:d/workspace/docker-workspace" --engine-registry-mirror=https://fhy2erxk.mirror.aliyuncs.com dws
 
 
 
