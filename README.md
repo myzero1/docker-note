@@ -293,7 +293,7 @@ docker-machine create \
 --driver virtualbox \
 --virtualbox-cpu-count=2 \
 --virtualbox-memory=4096  \
---virtualbox-disk-size=10240 \
+--virtualbox-disk-size=102400 \
 --virtualbox-share-folder "D:\workspace\docker-workspace:d/workspace/docker-workspace"
 --virtualbox-boot2docker-url=https://note.youdao.com/yws/res/5993/WEBRESOURCE7d08d7b39bfa922ed21bfb7e2afd1a66 \
 --engine-registry-mirror=https://fhy2erxk.mirror.aliyuncs.com \
