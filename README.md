@@ -313,7 +313,7 @@ docker-machine create \
 --virtualbox-disk-size=102400 \ # 磁盘100G
 --virtualbox-share-folder=D:\workspace\docker-workspace:d/workspace/docker-workspace \ #宿主机和boot2docker的文件共享
 --virtualbox-boot2docker-url=file://C:\\Users\\Administrator\\.docker\\machine\\cache\\boot2docker.iso \   #使用本地的boot2docker镜像（可以正常使用）
---virtualbox-boot2docker-url=https://note.youdao.com/yws/res/5993/WEBRESOURCE7d08d7b39bfa922ed21bfb7e2afd1a66 \ #自定义地址(使用时会报错)，不设置会去github找
+--virtualbox-boot2docker-url=https://note.youdao.com/yws/res/5993/WEBRESOURCE7d08d7b39bfa922ed21bfb7e2afd1a66 \ #自定义地址，不设置会去github找
 --engine-registry-mirror=https://fhy2erxk.mirror.aliyuncs.com \ #docker 镜像地址可以设置多个
 --engine-registry-mirror=https://ulh1xo4t.mirror.aliyuncs.com \
 --engine-registry-mirror=https://2lqq34jg.mirror.aliyuncs.com \
@@ -322,7 +322,11 @@ dws
 
 修改docker安装的machine位置 https://stackoverflow.com/questions/33933107/change-docker-machine-location-windows   https://www.cnblogs.com/ginponson/p/8601320.html  https://www.jianshu.com/p/80fa5b563b5b?utm_campaign   
 
-	在Windows的系统环境添加 MACHINE_STORAGE_PATH ，指向虚拟机的位置（我推荐 D:\vm\boot2docker-machine ）-------virtualbox要报错没成功
+	在Windows的系统环境添加 MACHINE_STORAGE_PATH ，指向虚拟机的位置（我推荐 D:\vm\boot2docker-machine ）-------推荐
+	
+	setx MACHINE_STORAGE_PATH "D:\vm\boot2docker-machine"
+	wmic ENVIRONMENT where "name='MACHINE_STORAGE_PATH'" delete
+	
 
 	C:\Users\username> mklink /j .docker D:\.docker  ------这个可行
 
