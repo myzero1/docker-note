@@ -320,9 +320,11 @@ docker-machine create \
 dws
 
 
-修改docker安装的machine位置   https://www.cnblogs.com/ginponson/p/8601320.html  https://www.jianshu.com/p/80fa5b563b5b?utm_campaign   
+修改docker安装的machine位置 https://stackoverflow.com/questions/33933107/change-docker-machine-location-windows   https://www.cnblogs.com/ginponson/p/8601320.html  https://www.jianshu.com/p/80fa5b563b5b?utm_campaign   
 
-在Windows的系统环境添加 MACHINE_STORAGE_PATH ，指向虚拟机的位置（我推荐 D:\vm\boot2docker-machine ）
+	在Windows的系统环境添加 MACHINE_STORAGE_PATH ，指向虚拟机的位置（我推荐 D:\vm\boot2docker-machine ）-------virtualbox要报错没成功
+
+	C:\Users\username> mklink /j .docker D:\.docker  ------这个可行
 
 
 
